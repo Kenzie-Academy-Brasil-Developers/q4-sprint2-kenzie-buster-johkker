@@ -17,7 +17,9 @@ export class DvdToBeSold {
   @Column({ name: "amount", type: "int" })
   amount: number;
 
-  @ManyToOne(() => Dvd, (dvd) => dvd.dvdsToBeSold)
+  @ManyToOne(() => Dvd, (dvd) => dvd.dvdsToBeSold, {
+    eager: true,
+  })
   @JoinColumn()
   dvd: Dvd;
 }

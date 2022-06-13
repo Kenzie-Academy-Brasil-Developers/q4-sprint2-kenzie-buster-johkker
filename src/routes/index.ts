@@ -18,36 +18,18 @@ import {
   createDvdSchema,
   addDvdToCartSchema,
 } from "../schemas";
+import cartRoutes from "./cart.routes";
+import dvdRoutes from "./dvd.routes";
+import userRoutes from "./user.routes";
 
 const routes = Router();
 
-//User routes
-routes.post(
-  "/users/register",
-  validateForms(createUserSchema),
-  // validateAdm,
-  createUserCTRL
-);
-routes.post("/users/login", validateForms(userLoginSchema), userLoginCTRL);
-routes.get("/users", getUsersCTRL);
+routes.use("/api", userRoutes);
 
 //Dvds routes
-routes.post(
-  "/dvds/register",
-  validateForms(createDvdSchema),
-  validateAdm,
-  createDvdCTRL
-);
-routes.get("/dvds", getDvdsCTRL);
-routes.post(
-  "/dvds/buy/:id",
-  validateForms(addDvdToCartSchema),
-  validateAuth,
-  validateDvd,
-  addDvdToCartCTRL
-);
+routes.use("/api", dvdRoutes);
 
 //Carts routes
-routes.put("/carts/pay", validateAuth, payCartCTRL);
+routes.use("/api", cartRoutes);
 
 export default routes;

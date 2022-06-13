@@ -8,11 +8,20 @@ import {
 
 const payCartSVC = async (cart: Cart) => {
   const oldCart: Cart = JSON.parse(JSON.stringify(cart));
+  console.log("cart:", cart);
+  console.log("cart.products:", cart.products);
 
   for (const dvdToBeSold of cart.products) {
-    console.log("dvdToBeSold:", dvdToBeSold);
+    let newDvdToBeSold = await dvdToBeSoldRepository.findOne({
+      where: { id: dvdToBeSold.id },
+    });
+
+    if (!newDvdToBeSold) {
+      throw new Error();
+    }
+    console.log("newDvdToBeSold:", newDvdToBeSold);
     let dvd = await dvdRepository.findOne({
-      where: { id: dvdToBeSold.dvd.id },
+      where: { id: newDvdToBeSold.dvd.id },
     });
     if (!dvd) {
       throw new Error();
