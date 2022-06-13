@@ -1,6 +1,10 @@
 import { AppError } from "../errors";
-import { User, Dvd, Stock, Cart } from "../entities";
-import { cartRepository, stockRepository } from "../repositories";
+import { User, Stock, Cart, DvdToBeSold, Dvd } from "../entities";
+import {
+  cartRepository,
+  dvdToBeSoldRepository,
+  stockRepository,
+} from "../repositories";
 
 const addDvdToCartSVC = async (
   dvd: Dvd,
@@ -16,10 +20,16 @@ const addDvdToCartSVC = async (
     );
   }
 
-  stock.quantity -= quantity;
-  await stockRepository.save(stock);
+  const dvdToBeSold = new DvdToBeSold();
+  dvdToBeSold.amount = quantity;
+  dvdToBeSold.dvd = dvd;
+  console.log("dvdToBeSold before saving:", dvdToBeSold);
 
-  cart.products.push(dvd);
+  dvdToBeSoldRepository.create(dvdToBeSold);
+  await dvdToBeSoldRepository.save(dvdToBeSold);
+
+  console.log("dvdToBeSold after saving:", dvdToBeSold);
+  cart.products.push(dvdToBeSold);
   cart.total += stock.price * quantity;
 
   await cartRepository.save(cart);

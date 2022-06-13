@@ -1,4 +1,4 @@
-import { Buy, Cart, Stock } from "../entities";
+import { Cart, Stock } from "../entities";
 
 export interface IUserLogin {
   email: string;
@@ -42,5 +42,8 @@ export interface IDvdComplete extends IDvd {
 
 export interface IUserComplete extends IUser {
   cart: Cart;
-  buys: Buy[];
+}
+
+export interface IDvdToBeSold extends IDvd {
+  amount: number;
 }

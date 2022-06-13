@@ -5,7 +5,9 @@ import {
   Unique,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
+import { DvdToBeSold } from "./dvdToBeSold.entity";
 import { Stock } from "./stock.entity";
 
 @Entity()
@@ -25,4 +27,7 @@ export class Dvd {
   })
   @JoinColumn()
   stock: Stock;
+
+  @OneToMany(() => DvdToBeSold, (dvdToBeSold) => dvdToBeSold.dvd)
+  dvdsToBeSold: DvdToBeSold[];
 }

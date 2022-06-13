@@ -11,4 +11,4 @@ app.use(routes);
 
 app.use(handleError);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);

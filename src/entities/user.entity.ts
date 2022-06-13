@@ -7,7 +7,6 @@ import {
   JoinColumn,
   OneToMany,
 } from "typeorm";
-import { Buy } from "./buy.entity";
 import { Cart } from "./cart.entity";
 
 @Entity()
@@ -27,11 +26,6 @@ export class User {
 
   @Column({ name: "isAdm", type: "boolean" })
   isAdm: boolean;
-
-  @OneToMany(() => Buy, (buy) => buy.user, {
-    eager: true,
-  })
-  buys: Buy[];
 
   @OneToOne(() => Cart, {
     eager: true,

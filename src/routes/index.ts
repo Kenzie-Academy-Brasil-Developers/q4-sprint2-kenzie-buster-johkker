@@ -25,7 +25,7 @@ const routes = Router();
 routes.post(
   "/users/register",
   validateForms(createUserSchema),
-  validateAdm,
+  // validateAdm,
   createUserCTRL
 );
 routes.post("/users/login", validateForms(userLoginSchema), userLoginCTRL);
